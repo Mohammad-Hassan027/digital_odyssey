@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import useMobileDetection from '../hooks/useMobileDetection'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -150,6 +151,7 @@ const STARS = Array.from({ length: 180 }, () => ({
 }))
 
 export default function TimelineScroll({ onActiveEra }) {
+  const { isMobile } = useMobileDetection()
   const outerRef    = useRef(null)   // pinned wrapper
   const trackRef    = useRef(null)   // horizontal flex track
   const starsRef    = useRef(null)   // slow parallax layer
@@ -205,33 +207,32 @@ export default function TimelineScroll({ onActiveEra }) {
             // Each card occupies 1/n of the total travel.
             // cardProg = where this card sits in [0,1] scroll space
             cards.forEach((card, i) => {
-              // normalised progress relative to this specific card slot
               const cardStart = i / n
               const cardEnd   = (i + 1) / n
               const cardMid   = (cardStart + cardEnd) / 2
 
+              const limitIn  = isMobile ? 15 : 45
+              const limitOut = isMobile ? -12 : -35
+
               let rotY = 0
 
               if (prog < cardStart) {
-                // Card hasn't arrived yet — rotated 45deg (incoming from right)
-                rotY = 45
+                rotY = limitIn
               } else if (prog <= cardMid) {
-                // Entry: 45 → 0 deg as it comes to center
                 const t = (prog - cardStart) / (cardMid - cardStart)
-                rotY = 45 * (1 - t)
+                rotY = limitIn * (1 - t)
               } else if (prog <= cardEnd) {
-                // Exit: 0 → -35 deg as it leaves left
                 const t = (prog - cardMid) / (cardEnd - cardMid)
-                rotY = -35 * t
+                rotY = limitOut * t
               } else {
-                // Card has left — -35deg
-                rotY = -35
+                rotY = limitOut
               }
 
-              const sc  = rotY === 0 ? 1 : rotY > 0
-                ? 0.9 + (1.0 - 0.9) * (1 - rotY / 45)
-                : 1.0 + (0.94 - 1.0) * (Math.abs(rotY) / 35)
-              const op  = rotY === 0 ? 1 : Math.abs(rotY) > 30 ? 0.4 : 1 - (Math.abs(rotY) / 30) * 0.6
+              const sc = rotY === 0 ? 1 : rotY > 0
+                ? 0.92 + (1.0 - 0.92) * (1 - rotY / limitIn)
+                : 1.0 + (0.95 - 1.0) * (Math.abs(rotY) / Math.abs(limitOut))
+              
+              const op = rotY === 0 ? 1 : Math.abs(rotY) > (isMobile ? 10 : 30) ? 0.5 : 1 - (Math.abs(rotY) / 30) * 0.5
 
               gsap.set(card, { rotateY: rotY, scale: sc, opacity: op })
             })

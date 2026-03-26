@@ -132,7 +132,7 @@ export default function MobileSection({ sectionRef }) {
           <span className="text-[#6c63ff]/70 font-['Share_Tech_Mono'] text-sm tracking-widest uppercase">2010s</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-grid)] items-center">
           {/* Left */}
           <div>
             <div ref={headingRef}>

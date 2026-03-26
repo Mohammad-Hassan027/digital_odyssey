@@ -95,14 +95,14 @@ export default function LoadingOverlay({ onComplete }) {
         ))}
       </div>
 
-      <div className="relative z-10 flex flex-col items-center">
+      <div className="loader-inner relative z-10">
         {!isDone ? (
           <>
-            <div className="mb-12 text-center">
-              <h2 className="text-[#00ff41] font-['Share_Tech_Mono'] text-lg md:text-xl tracking-[0.2em] mb-4 animate-pulse">
-                DOWNLOADING TIMELINE DATA...
+            <div className="w-full">
+              <h2 className="text-[#00ff41] font-['Share_Tech_Mono'] text-sm md:text-base tracking-[0.25em] mb-3 opacity-80 uppercase">
+                Data_Stream: Loading_Matrix
               </h2>
-              <div className="packet-track">
+              <div className="packet-track mb-10">
                 {packets.map((p) => (
                   <div 
                     key={p.id} 
@@ -113,18 +113,18 @@ export default function LoadingOverlay({ onComplete }) {
               </div>
             </div>
 
-            <div className="text-center">
-              <div className="text-[#00ff41] font-['Share_Tech_Mono'] text-6xl md:text-8xl font-black mb-4 transition-all">
+            <div className="flex flex-col items-center">
+              <div className="loader-pct text-[#00ff41] text-7xl md:text-9xl font-black mb-2">
                 {pct}%
               </div>
-              <p className="text-[#00ff41]/50 font-['Share_Tech_Mono'] text-xs tracking-widest uppercase">
-                Synchronizing Historical Nodes
+              <p className="text-[#00ff41]/40 font-['Share_Tech_Mono'] text-[0.65rem] tracking-[0.4em] uppercase">
+                Connection_Established // Sync_Nodes
               </p>
             </div>
           </>
         ) : (
-          <h1 className="conn-established text-3xl md:text-5xl font-black tracking-widest text-center px-6">
-            CONNECTION ESTABLISHED
+          <h1 className="conn-established text-3xl md:text-6xl font-black tracking-widest text-center px-6">
+            SYSTEM ONLINE
           </h1>
         )}
       </div>

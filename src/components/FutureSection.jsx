@@ -254,7 +254,7 @@ export default function FutureSection({ sectionRef }) {
         </div>
 
         {/* Feature cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" role="list" aria-label="Future web features">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[var(--gap-grid)]" role="list" aria-label="Future web features">
           {theme.cards.map((card, i) => (
             <div
               key={card.title}

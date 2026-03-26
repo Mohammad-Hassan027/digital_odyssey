@@ -134,7 +134,7 @@ export default function SparkSection({ sectionRef }) {
           <span className="text-[#00ff41]/50 font-['Share_Tech_Mono'] text-sm tracking-widest uppercase">1960s – 1970s</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-grid)] items-center">
           {/* Left: Narrative */}
           <div>
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-['Share_Tech_Mono'] text-[#00ff41] text-glow-green leading-tight mb-6">

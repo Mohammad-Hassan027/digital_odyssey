@@ -174,7 +174,7 @@ export default function SocialSection({ sectionRef }) {
         </div>
 
         {/* Social post cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" role="feed" aria-label="Historic social media posts">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--gap-grid)]" role="feed" aria-label="Historic social media posts">
           {POSTS.map((post, i) => (
             <article
               key={post.id}

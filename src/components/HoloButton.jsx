@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
+import useMobileDetection from '../hooks/useMobileDetection';
 
 /**
  * HoloButton - A holographic button with 3D tilt, scanlines, and ripple effects.
  */
 export default function HoloButton({ children, onClick, className = '', ...props }) {
+  const { isMobile } = useMobileDetection();
   const buttonRef = useRef(null);
   const [ripples, setRipples] = useState([]);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -11,8 +13,8 @@ export default function HoloButton({ children, onClick, className = '', ...props
   // Handle ripple effect on click
   const handleClick = (e) => {
     const rect = buttonRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = e.type.includes('touch') ? e.touches[0].clientX - rect.left : e.clientX - rect.left;
+    const y = e.type.includes('touch') ? e.touches[0].clientY - rect.top : e.clientY - rect.top;
     const rippleId = Date.now();
     
     setRipples((prev) => [...prev, { id: rippleId, x, y }]);
@@ -25,13 +27,13 @@ export default function HoloButton({ children, onClick, className = '', ...props
     if (onClick) onClick(e);
   };
 
-  // Handle 3D tilt toward cursor
+  // Handle 3D tilt toward cursor (Disable on mobile for performance)
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = buttonRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    // Calculate rotation (-10 to 10 degrees)
     const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 12;
     const rotateX = ((centerY - e.clientY) / (rect.height / 2)) * 12;
 
@@ -47,10 +49,12 @@ export default function HoloButton({ children, onClick, className = '', ...props
       ref={buttonRef}
       className={`holo-btn ${className}`}
       onClick={handleClick}
+      onTouchStart={isMobile ? handleClick : undefined}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
-        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transform: isMobile ? 'none' : `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        willChange: 'transform, opacity',
       }}
       {...props}
     >

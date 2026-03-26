@@ -153,7 +153,7 @@ export default function BoomSection({ sectionRef }) {
         </ScrambleText>
 
         {/* Interactive Web 1.0 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" role="list" aria-label="Iconic 90s websites">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--gap-grid)]" role="list" aria-label="Iconic 90s websites">
           {WEBSITES.map((site, i) => (
             <article
               key={site.id}

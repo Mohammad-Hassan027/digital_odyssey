@@ -15,6 +15,12 @@
   --font-pixel: 'Press Start 2P', monospace;
   --font-inter: 'Inter', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
+  
+  /* Fluid Spacing Tokens */
+  --px-screen: clamp(1.5rem, 6vw, 5rem);
+  --py-section: clamp(6rem, 18vh, 16rem);
+  --gap-grid: clamp(2.5rem, 8vw, 6rem);
+  --gap-element: clamp(1.2rem, 4vw, 3rem);
 }
 
 * {
@@ -83,6 +89,7 @@ body {
   overflow: hidden;
   display: flex;
   align-items: center;
+  padding: var(--py-section) var(--px-screen);
 }
 
 /* ─── SVG WAVE DIVIDER ─── */
@@ -637,11 +644,11 @@ body {
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 1200px;
-  padding: 60px clamp(24px, 6vw, 80px);
+  max-width: 1300px;
+  padding: clamp(2rem, 8vh, 6rem) var(--px-screen);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(24px, 4vw, 64px);
+  gap: var(--gap-grid);
   align-items: center;
 }
 
@@ -1069,8 +1076,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: var(--gap-grid);
   text-align: center;
+  padding: var(--py-section) 0;
 }
 
 /* ── Labels ───────────────────────────────────────────────── */
@@ -1554,14 +1562,14 @@ body {
 
 /* ── Body / scrolling output ──────────────────────────────── */
 .hero-terminal-body {
-  padding: 18px 24px 20px;
+  padding: var(--gap-element) calc(var(--gap-element) * 1.5);
   overflow-y: auto;
   flex: 1;
   /* Hide scrollbar but keep behavior */
   scrollbar-width: none;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .hero-terminal-body::-webkit-scrollbar {
@@ -1983,6 +1991,16 @@ body {
 .loader-overlay {
   background: radial-gradient(circle at center, #050510 0%, #000 100%);
   overflow: hidden;
+  padding: var(--px-screen);
+}
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-element);
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Hex Rain */
@@ -1990,13 +2008,14 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.15;
+  opacity: 0.12;
   display: flex;
   justify-content: space-around;
   font-family: var(--font-mono);
   font-size: 14px;
   color: #00ff41;
   z-index: 0;
+  overflow: hidden;
 }
 
 .hex-column {
@@ -2014,37 +2033,58 @@ body {
 /* Packet Visualization */
 .packet-track {
   position: relative;
-  width: min(500px, 90vw);
-  height: 40px;
-  background: rgba(0, 255, 65, 0.05);
-  border: 1px solid rgba(0, 255, 65, 0.15);
+  width: min(500px, 100%);
+  height: 48px;
+  background: rgba(0, 255, 65, 0.03);
+  border: 1px solid rgba(0, 255, 65, 0.2);
   border-radius: 4px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  margin-bottom: 24px;
+  box-shadow: inset 0 0 15px rgba(0, 255, 65, 0.05);
+}
+
+.packet-track::before {
+  content: 'TRAFFIC_BUFFER_IN';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: rgba(0, 255, 65, 0.3);
+  z-index: 2;
 }
 
 .packet {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: #00ff41;
-  box-shadow: 0 0 10px #00ff41;
+  box-shadow: 0 0 15px #00ff41, 0 0 5px #fff;
   border-radius: 2px;
+  z-index: 5;
   animation: packet-move 1.8s linear forwards;
 }
 
 .packet.failing {
   background: #ff003c;
-  box-shadow: 0 0 10px #ff003c;
+  box-shadow: 0 0 15px #ff003c, 0 0 5px #fff;
 }
 
 @keyframes packet-move {
-  0% { left: -20px; transform: scale(0.6); }
+  0% { left: -30px; transform: scale(0.6); }
   20% { opacity: 1; transform: scale(1); }
   80% { opacity: 1; }
-  100% { left: calc(100% + 20px); opacity: 0; }
+  100% { left: calc(100% + 30px); opacity: 0; }
+}
+
+/* Percentage stable layout */
+.loader-pct {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-shadow: 0 0 30px var(--color-spark);
 }
 
 /* Connection Established Flash */
@@ -2120,5 +2160,121 @@ body {
   
   .tl-card-perspective {
     perspective: none !important;
+  }
+}
+
+/* ── RESPONSIVE TYPOGRAPHY (Expert Frontend Refactor) ── */
+h1 { font-size: clamp(2.5rem, 10vw, 5.5rem); }
+h2 { font-size: clamp(2.0rem, 8vw, 4.5rem); }
+.hero-line, .terminal-line, .scramble-text { 
+  font-size: clamp(0.75rem, 2vw, 1.1rem); 
+  line-height: 1.6;
+}
+
+/* ── TimelineScroll Mobile Refactor ──────────────────── */
+.tl-card-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  height: 100%;
+}
+
+.tl-card-content, .tl-card-visual {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .tl-card-inner {
+    flex-direction: column !important;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .tl-card-right {
+    height: 35vh; /* Controlled height for mobile visuals */
+    order: -1;   /* Show visual above text on mobile */
+    min-height: 200px;
+  }
+
+  .tl-card-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* Mobile Focus & Press feedback */
+.holo-btn:active, .mobile-era-btn:active {
+  background: rgba(0, 255, 65, 0.3) !important;
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* ── GLOBAL LAYOUT REFINEMENTS ─────────────────────── */
+section, .tl-card {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Ensure narrative paragraphs don't hit edges */
+.scramble-text, p {
+  max-width: min(100%, 75ch);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 640px) {
+  .tl-card-left {
+    padding: 1rem 0;
+  }
+  
+  .tl-facts {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .tl-stats {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100%;
+  }
+
+  .tl-stat {
+    width: 100%;
+    text-align: center;
+    border-left: none !important;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  /* Stabilize Hero screen padding */
+  .hero-crt-screen {
+    width: 95vw !important;
+    margin: 0 auto;
+  }
+}
+
+/* 3D Clipping fixes for ultra-mobile devices */
+@media (max-width: 390px) {
+  .tl-card-perspective {
+    transform: scale(0.92);
+  }
+  
+  .tl-card-title {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* ── Portal Centering Fix ──────────────────────────── */
+@media (max-width: 1024px) {
+  .portal-center-core {
+    transform: translateY(-15%); /* Move core up to avoid text overlap */
   }
 }

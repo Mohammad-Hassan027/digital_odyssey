@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ScrambleText from './ScrambleText';
+import useMobileDetection from '../hooks/useMobileDetection';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -32,6 +33,7 @@ export default function PortalSection() {
   const animIdRef   = useRef(null)
   const particlesRef = useRef(BASE_PARTICLES.map(p => ({ ...p })))
   const glowIntRef   = useRef(0)   // 0–1, driven by scroll
+  const { isMobile } = useMobileDetection();
   const [warping, setWarping] = useState(false)
   const [warpDone, setWarpDone] = useState(false)
 
@@ -55,7 +57,7 @@ export default function PortalSection() {
     window.addEventListener('resize', resize)
 
     const cx = () => canvas.width  / 2
-    const cy = () => canvas.height / 2
+    const cy = () => isMobile ? (canvas.height / 2) - 40 : (canvas.height / 2)
 
     const draw = () => {
       if (!inView) {
@@ -64,22 +66,20 @@ export default function PortalSection() {
       }
       
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      const glow = glowIntRef.current   // 0–1
+      const glow = glowIntRef.current
 
       particlesRef.current.forEach(p => {
-        // Spiral inward: reduce radius each frame
         p.radius -= p.speed * (1 + glow * 1.5)
         p.angle  += 0.008 * (1 + glow * 0.5)
 
-        // Respawn when reaching center
         if (p.radius < 8) {
-          p.radius = 240 + Math.random() * 100
+          p.radius = (isMobile ? 180 : 240) + Math.random() * 100
           p.angle  = Math.random() * Math.PI * 2
           p.opacity= 0.2 + Math.random() * 0.6
         }
 
         const x = cx() + Math.cos(p.angle) * p.radius
-        const y = cy() + Math.sin(p.angle) * p.radius * 0.38  // squash for 3D feel
+        const y = cy() + Math.sin(p.angle) * p.radius * (isMobile ? 0.3 : 0.38)
 
         const alpha = p.opacity * (p.radius / 300)
         ctx.beginPath()
