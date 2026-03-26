@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
+import GlitchReveal from './GlitchReveal';
+import ScrambleText from './ScrambleText';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -57,22 +59,17 @@ export default function BoomSection({ sectionRef }) {
         },
       })
 
-      // Heading reveal with glitch effect
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 80%',
-          once: true,
-          onEnter: () => {
-            setGlitchActive(true)
-            setTimeout(() => setGlitchActive(false), 800)
-          },
-        },
-      }).from(headingRef.current, {
+      // Heading reveal
+      gsap.from(headingRef.current, {
         opacity: 0,
         scale: 0.8,
         duration: 0.6,
         ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 80%',
+          once: true,
+        },
       })
 
       // Stagger cards
@@ -103,8 +100,7 @@ export default function BoomSection({ sectionRef }) {
       className="boom-section odyssey-section snap-section"
       aria-label="Era 2: The Boom — 1990s"
     >
-      {/* Glitch overlay */}
-      <div className={`glitch-overlay ${glitchActive ? 'glitch-active' : ''}`} />
+      {/* Era background elements */}
 
       {/* Decorative BG elements */}
       <div ref={bgRef} className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -141,12 +137,9 @@ export default function BoomSection({ sectionRef }) {
         </div>
 
         <div ref={headingRef} className="mb-4">
-          <h2
-            className="text-5xl md:text-6xl lg:text-8xl font-black text-white leading-none"
-            style={{ fontFamily: 'Impact, sans-serif', WebkitTextStroke: '2px #ff6b35' }}
-          >
+          <GlitchReveal as="h2" className="text-5xl md:text-6xl lg:text-8xl font-black text-white leading-none" style={{ fontFamily: 'Impact, sans-serif', WebkitTextStroke: '2px #ff6b35' }}>
             THE BOOM
-          </h2>
+          </GlitchReveal>
           <div className="marquee-container mt-4">
             <span className="marquee-text">
               ★★★ WELCOME TO THE WORLD WIDE WEB ★★★ FREE INTERNET BROWSER INSIDE ★★★ NASDAQ 5000 ★★★ CLICK HERE TO WIN ★★★ THIS SITE BEST VIEWED IN NETSCAPE ★★★ E-COMMERCE IS THE FUTURE ★★★
@@ -154,10 +147,10 @@ export default function BoomSection({ sectionRef }) {
           </div>
         </div>
 
-        <p className="text-white/80 text-base md:text-lg mb-12 max-w-xl font-['Inter']">
+        <ScrambleText className="text-white/80 text-base md:text-lg mb-12 max-w-xl font-['Inter']">
           The 90s unleashed the web on the world. Dot-coms soared, GeoCities flourished,
           and everyone had a &quot;Under Construction&quot; GIF on their homepage.
-        </p>
+        </ScrambleText>
 
         {/* Interactive Web 1.0 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6" role="list" aria-label="Iconic 90s websites">

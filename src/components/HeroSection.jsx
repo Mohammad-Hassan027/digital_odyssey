@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import ScrambleText from './ScrambleText';
+import HoloButton from './HoloButton';
 import gsap from 'gsap'
 
 // ─────────────────────────────────────────────────────────────
@@ -240,20 +242,18 @@ export default function HeroSection({ onReady }) {
             <div className="hero-cta-wrapper">
               <p className="hero-line hero-line--dim">──────────────────────────────────────────────────────</p>
               <div className="hero-cta-row">
-                <span className="hero-line hero-line--output">
+                <ScrambleText className="hero-line hero-line--output" threshold="top 99%">
                   Journey initialised. Press any key or click below to begin.
-                </span>
+                </ScrambleText>
               </div>
-              <button
+              <HoloButton
                 id="hero-begin-btn"
-                className="hero-begin-btn"
                 onClick={handleBegin}
                 aria-label="Begin the Digital Odyssey"
+                className="hero-begin-btn"
               >
-                <span className="hero-begin-bracket">[</span>
-                &nbsp;BEGIN ODYSSEY&nbsp;
-                <span className="hero-begin-bracket">]</span>
-              </button>
+                [ BEGIN ODYSSEY ]
+              </HoloButton>
               <p className="hero-line hero-line--system mt-2">
                 <span className="hero-prompt">$ </span>
                 <span className="hero-cursor" aria-hidden="true">_</span>

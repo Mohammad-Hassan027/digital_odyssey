@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import ScrambleText from './ScrambleText';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -40,6 +41,12 @@ export default function PortalSection() {
     if (!canvas) return
     const ctx = canvas.getContext('2d')
 
+    let inView = false
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+    }, { threshold: 0.1 })
+    observer.observe(sectionRef.current)
+
     const resize = () => {
       canvas.width  = canvas.offsetWidth
       canvas.height = canvas.offsetHeight
@@ -51,6 +58,11 @@ export default function PortalSection() {
     const cy = () => canvas.height / 2
 
     const draw = () => {
+      if (!inView) {
+        animIdRef.current = requestAnimationFrame(draw)
+        return
+      }
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       const glow = glowIntRef.current   // 0–1
 
@@ -88,6 +100,7 @@ export default function PortalSection() {
     return () => {
       cancelAnimationFrame(animIdRef.current)
       window.removeEventListener('resize', resize)
+      observer.disconnect()
     }
   }, [])
 
@@ -279,12 +292,12 @@ export default function PortalSection() {
 
         {/* Label below */}
         <div className="portal-label-bottom">
-          <p className="portal-hint">
+          <ScrambleText className="portal-hint">
             Click the portal to initiate time travel
-          </p>
-          <p className="portal-era-hint">
+          </ScrambleText>
+          <ScrambleText className="portal-era-hint">
             Destination: <span>1969 — ARPANET</span>
-          </p>
+          </ScrambleText>
         </div>
 
       </div>

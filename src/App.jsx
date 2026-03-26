@@ -7,6 +7,7 @@ import SectionNav        from './components/SectionNav'
 import HeroSection       from './components/HeroSection'
 import PortalSection     from './components/PortalSection'
 import TimelineScroll    from './components/TimelineScroll'
+import StarField         from './components/StarField'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -85,6 +86,7 @@ export default function App() {
 
       {!loading && (
         <>
+          <StarField />
           <SectionNav activeSection={activeSection} />
 
           {/* ── Fixed header ───────────────────────────────── */}

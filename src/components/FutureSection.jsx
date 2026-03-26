@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
+import GlitchReveal from './GlitchReveal';
+import ScrambleText from './ScrambleText';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -221,13 +223,13 @@ export default function FutureSection({ sectionRef }) {
         </div>
 
         <div ref={headingRef} className="mb-8">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight font-['Outfit'] mb-4 text-glow-purple">
+          <GlitchReveal as="h2" className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight font-['Outfit'] mb-4 text-glow-purple">
             THE FUTURE
-          </h2>
-          <p className="text-white/60 text-base md:text-xl max-w-lg font-['Inter'] leading-relaxed">
+          </GlitchReveal>
+          <ScrambleText className="text-white/60 text-base md:text-xl max-w-lg font-['Inter'] leading-relaxed">
             The internet transforms again. Decentralized. Intelligent. Owned by its users.
             We stand at the threshold of something extraordinary.
-          </p>
+          </ScrambleText>
         </div>
 
         {/* Theme Toggle */}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import ScrambleText from './ScrambleText';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -155,10 +156,10 @@ export default function SocialSection({ sectionRef }) {
             THE SOCIAL
             <span className="text-[#1877f2]"> WEB</span>
           </h2>
-          <p className="text-[#4b5563] text-base md:text-xl mt-4 max-w-xl font-['Inter']">
+          <ScrambleText className="text-[#4b5563] text-base md:text-xl mt-4 max-w-xl font-['Inter']">
             One billion people connect. Share. Like. Follow. The internet stops being
             about information — and starts being about <em>people</em>.
-          </p>
+          </ScrambleText>
         </div>
 
         {/* Connection statistic banner */}
@@ -205,9 +206,9 @@ export default function SocialSection({ sectionRef }) {
               </div>
 
               {/* Content */}
-              <p className="text-sm text-[#333] leading-relaxed mb-4 font-['Inter']">
+              <ScrambleText className="text-sm text-[#333] leading-relaxed mb-4 font-['Inter']">
                 {post.content}
-              </p>
+              </ScrambleText>
 
               {/* Actions */}
               <div className="flex items-center gap-4">

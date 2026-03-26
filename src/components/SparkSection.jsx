@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react'
+import ScrambleText from './ScrambleText';
+import HoloButton from './HoloButton';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
+const PARTICLES_BASE = Array.from({ length: 30 }, (_, i) => ({
   id: i,
   left: `${Math.random() * 100}%`,
   animDuration: `${8 + Math.random() * 12}s`,
@@ -22,6 +24,8 @@ const TERMINAL_LINES = [
 ]
 
 export default function SparkSection({ sectionRef }) {
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches;
+  const particles = isMobile ? PARTICLES_BASE.slice(0, 15) : PARTICLES_BASE;
   const terminalRef = useRef(null)
   const linesRef = useRef([])
   const connectRef = useRef(null)
@@ -96,7 +100,7 @@ export default function SparkSection({ sectionRef }) {
     >
       {/* Floating particles */}
       <div ref={bgRef} className="absolute inset-0 overflow-hidden pointer-events-none">
-        {PARTICLES.map(p => (
+        {particles.map(p => (
           <div
             key={p.id}
             className="spark-particle"
@@ -136,22 +140,22 @@ export default function SparkSection({ sectionRef }) {
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-['Share_Tech_Mono'] text-[#00ff41] text-glow-green leading-tight mb-6">
               THE<br />SPARK
             </h2>
-            <p className="text-[#00ff41]/70 font-['Share_Tech_Mono'] text-sm md:text-base leading-loose mb-8 max-w-md">
+            <ScrambleText className="text-[#00ff41]/70 font-['Share_Tech_Mono'] text-sm md:text-base leading-loose mb-8 max-w-md">
               October 29, 1969. A computer at UCLA attempts to send the word "LOGIN" to a node at Stanford.
               The system crashes after two letters. "LO" — and so begins the internet.
-            </p>
+            </ScrambleText>
 
             {/* Connect button */}
             <div>
-              <button
+              <HoloButton
                 ref={connectRef}
                 id="arpanet-connect-btn"
-                className="connect-btn"
                 onClick={handleConnect}
                 aria-label="Simulate ARPANET connection"
+                className="w-full md:w-auto"
               >
                 [ CONNECT ]
-              </button>
+              </HoloButton>
 
               <div
                 ref={connectedRef}

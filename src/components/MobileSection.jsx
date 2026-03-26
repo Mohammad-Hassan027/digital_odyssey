@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import ScrambleText from './ScrambleText';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -142,10 +143,10 @@ export default function MobileSection({ sectionRef }) {
                   SHIFT
                 </span>
               </h2>
-              <p className="text-white/70 text-base md:text-lg mb-10 max-w-lg font-['Inter'] leading-relaxed">
+              <ScrambleText className="text-white/70 text-base md:text-lg mb-10 max-w-lg font-['Inter'] leading-relaxed">
                 A glass rectangle in your pocket replaced maps, cameras, wallets, TVs,
                 and newspapers. The internet went from a destination to a constant companion.
-              </p>
+              </ScrambleText>
             </div>
 
             {/* Milestone cards */}
@@ -164,7 +165,7 @@ export default function MobileSection({ sectionRef }) {
                       <span className="text-[#6c63ff] font-bold text-sm font-['Share_Tech_Mono']">{m.year}</span>
                       <span className="text-white font-semibold font-['Outfit']">{m.title}</span>
                     </div>
-                    <p className="text-white/50 text-sm font-['Inter']">{m.desc}</p>
+                    <ScrambleText className="text-white/50 text-sm font-['Inter']">{m.desc}</ScrambleText>
                   </div>
                 </div>
               ))}
