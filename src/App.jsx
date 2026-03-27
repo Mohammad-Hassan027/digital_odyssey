@@ -2,23 +2,23 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import LoadingOverlay    from './components/LoadingOverlay'
-import SectionNav        from './components/SectionNav'
-import HeroSection       from './components/HeroSection'
-import PortalSection     from './components/PortalSection'
-import TimelineScroll    from './components/TimelineScroll'
-import StarField         from './components/StarField'
-import MobileEraNav      from './components/MobileEraNav'
+import LoadingOverlay from './components/LoadingOverlay'
+import SectionNav from './components/SectionNav'
+import HeroSection from './components/HeroSection'
+import PortalSection from './components/PortalSection'
+import TimelineScroll from './components/TimelineScroll'
+import StarField from './components/StarField'
+import MobileEraNav from './components/MobileEraNav'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // Sections tracked by IntersectionObserver
-const FIXED_IDS   = ['hero', 'portal']
+const FIXED_IDS = ['hero', 'portal']
 // Era IDs tracked via the timeline's onActiveEra callback
-const ERA_IDS     = ['spark', 'boom', 'social', 'mobile', 'future']
+const ERA_IDS = ['spark', 'boom', 'social', 'mobile', 'future']
 
 export default function App() {
-  const [loading, setLoading]           = useState(true)
+  const [loading, setLoading] = useState(true)
   const [activeSection, setActiveSection] = useState('hero')
 
   const handleLoadComplete = useCallback(() => {
@@ -91,13 +91,13 @@ export default function App() {
           <div className="noise-overlay" />
           <div className="scanlines" />
           <div className="crt-vignette" />
-          
+
           <MobileEraNav />
           <SectionNav activeSection={activeSection} />
 
           {/* ── Brutalist Header ────────────────────────────── */}
           <header
-            className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5"
+            className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-3"
             style={{
               background: 'rgba(5, 5, 5, 0.85)',
               borderBottom: '1px solid rgba(0, 255, 65, 0.3)',
@@ -106,10 +106,10 @@ export default function App() {
           >
             {/* Logo */}
             <div className="flex items-center gap-4">
-              <div className="w-5 h-5 rounded-none border-2 border-[#00ff41] flex items-center justify-center bg-black">
-                <div className="w-1.5 h-1.5 bg-[#00ff41]" />
+              <div className="w-5 h-5 rounded-none border-2 border-spark flex items-center justify-center bg-black">
+                <div className="w-1.5 h-1.5 bg-spark" />
               </div>
-              <span className="font-['Share_Tech_Mono'] text-[#00ff41] text-xs md:text-sm tracking-[0.3em] font-bold uppercase">
+              <span className="font-mono text-spark text-xs md:text-sm tracking-[0.3em] font-bold uppercase">
                 Digital_Odyssey
               </span>
             </div>
@@ -121,29 +121,28 @@ export default function App() {
                   key={id}
                   id={`header-nav-${id}`}
                   onClick={() => scrollTo(id)}
-                  className={`text-[10px] font-['Share_Tech_Mono'] font-bold tracking-[0.2em] uppercase transition-all duration-100 ${
-                    activeSection === id
-                      ? 'text-[#00ff41] scale-110'
-                      : 'text-white/30 hover:text-white/70'
-                  }`}
+                  className={`text-[10px] font-mono font-bold tracking-[0.2em] uppercase transition-all duration-100 ${activeSection === id
+                    ? 'text-spark scale-110'
+                    : 'text-white/30 hover:text-white/70'
+                    }`}
                   aria-current={activeSection === id ? 'page' : undefined}
                 >
-                  {id === 'hero'   ? '0.Intro' : 
-                   id === 'portal' ? 'P.Gateway' : 
-                   id === 'spark'  ? '01.Spark' : 
-                   id === 'boom'   ? '02.Boom' : 
-                   id === 'social' ? '03.Social' : 
-                   id === 'mobile' ? '04.Shift' : 
-                   '05.Future'}
+                  {id === 'hero' ? '0.Intro' :
+                    id === 'portal' ? 'P.Gateway' :
+                      id === 'spark' ? '01.Spark' :
+                        id === 'boom' ? '02.Boom' :
+                          id === 'social' ? '03.Social' :
+                            id === 'mobile' ? '04.Shift' :
+                              '05.Future'}
                 </button>
               ))}
             </nav>
           </header>
 
           {/* ── Main content ────────────────────────────────── */}
-          <main>
-            <HeroSection    />
-            <PortalSection  />
+          <main className='py-1'>
+            <HeroSection />
+            <PortalSection />
             <TimelineScroll onActiveEra={handleActiveEra} />
           </main>
         </>

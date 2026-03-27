@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  --color-spark: #00ff41;
+  --color-spark-dim: #003b10;
+  --color-boom-primary: #ff6b35;
+  --color-boom-secondary: #f7c59f;
+  --color-social-primary: #1877f2;
+  --color-social-secondary: #e7f3ff;
+  --color-mobile-primary: #6c63ff;
+  --color-mobile-secondary: #f0eeff;
+  --color-future-primary: #a78bfa;
+  --color-future-secondary: #0f0a1e;
+
+  --font-mono: "Share Tech Mono", monospace;
+  --font-pixel: "Press Start 2P", monospace;
+  --font-inter: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+
+  --spacing-screen: clamp(1.5rem, 6vw, 5rem);
+  --spacing-section: clamp(6rem, 18vh, 16rem);
+  --spacing-grid: clamp(2.5rem, 8vw, 6rem);
+  --spacing-element: clamp(1.2rem, 4vw, 3rem);
+}
+
 :root {
   --color-spark: #00ff41;
   --color-spark-dim: #003b10;
@@ -21,12 +44,6 @@
   --py-section: clamp(6rem, 18vh, 16rem);
   --gap-grid: clamp(2.5rem, 8vw, 6rem);
   --gap-element: clamp(1.2rem, 4vw, 3rem);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -53,43 +70,9 @@ body {
 }
 
 
-/* ─── SECTION PROGRESS NAV ─── */
-.section-nav {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.section-nav-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 0; /* Square nav dots */
-  border: 1px solid rgba(255,255,255,0.4);
-  cursor: pointer;
-  transition: all 0.2s steps(2);
-  background: transparent;
-}
-
-.section-nav-dot.active {
-  background: var(--color-spark);
-  border-color: var(--color-spark);
-  box-shadow: 4px 4px 0px rgba(0, 255, 65, 0.3);
-  transform: scale(1.2);
-}
-
 /* ─── SECTION BASE ─── */
-.odyssey-section {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  padding: var(--py-section) var(--px-screen);
+@utility odyssey-section {
+  @apply min-h-screen relative overflow-hidden flex items-center px-screen py-section;
 }
 
 /* ─── SVG WAVE DIVIDER ─── */

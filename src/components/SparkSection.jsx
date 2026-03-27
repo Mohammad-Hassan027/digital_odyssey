@@ -130,17 +130,17 @@ export default function SparkSection({ sectionRef }) {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 py-20">
         {/* Era label */}
         <div className="mb-8 flex items-center gap-4">
-          <span className="text-[#00ff41]/50 font-['Share_Tech_Mono'] text-sm tracking-widest">01 /</span>
-          <span className="text-[#00ff41]/50 font-['Share_Tech_Mono'] text-sm tracking-widest uppercase">1960s – 1970s</span>
+          <span className="text-spark/50 font-mono text-sm tracking-widest">01 /</span>
+          <span className="text-spark/50 font-mono text-sm tracking-widest uppercase">1960s – 1970s</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--gap-grid)] items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-grid items-center">
           {/* Left: Narrative */}
           <div>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-['Share_Tech_Mono'] text-[#00ff41] text-glow-green leading-tight mb-6">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-mono text-spark text-glow-green leading-tight mb-6">
               THE<br />SPARK
             </h2>
-            <ScrambleText className="text-[#00ff41]/70 font-['Share_Tech_Mono'] text-sm md:text-base leading-loose mb-8 max-w-md">
+            <ScrambleText className="text-spark/70 font-mono text-sm md:text-base leading-loose mb-8 max-w-md">
               October 29, 1969. A computer at UCLA attempts to send the word "LOGIN" to a node at Stanford.
               The system crashes after two letters. "LO" — and so begins the internet.
             </ScrambleText>
@@ -159,11 +159,11 @@ export default function SparkSection({ sectionRef }) {
 
               <div
                 ref={connectedRef}
-                className="hidden items-center gap-3 font-['Share_Tech_Mono'] text-sm"
+                className="hidden items-center gap-3 font-mono text-sm"
                 aria-live="polite"
               >
-                <div className="w-3 h-3 rounded-full bg-[#00ff41] animate-ping" />
-                <span className="text-[#00ff41]">NODE CONNECTED — 4 HOPS</span>
+                <div className="w-3 h-3 rounded-full bg-spark animate-ping" />
+                <span className="text-spark">NODE CONNECTED — 4 HOPS</span>
               </div>
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function SparkSection({ sectionRef }) {
               <div className="terminal-dot" style={{ background: '#ff5f57' }} />
               <div className="terminal-dot" style={{ background: '#ffbd2e' }} />
               <div className="terminal-dot" style={{ background: '#28c840' }} />
-              <span className="ml-3 text-[#00ff41]/60 text-xs font-['Share_Tech_Mono']">
+              <span className="ml-3 text-spark/60 text-xs font-mono">
                 arpanet_terminal — bash
               </span>
             </div>
@@ -186,12 +186,12 @@ export default function SparkSection({ sectionRef }) {
                   ref={el => linesRef.current[i] = el}
                   className="terminal-line"
                 >
-                  <span className="text-[#00ff41]/50">[{line.prompt}]</span>
+                  <span className="text-spark/50">[{line.prompt}]</span>
                   <span className="ml-2">{line.text}</span>
                 </div>
               ))}
               <div className="mt-2 flex items-center">
-                <span className="text-[#00ff41]/50">{'$'} </span>
+                <span className="text-spark/50">{'$'} </span>
                 <span className="terminal-cursor ml-2" />
               </div>
             </div>
@@ -208,12 +208,12 @@ export default function SparkSection({ sectionRef }) {
             ['1976', '112 Nodes Online'],
           ].map(([year, label]) => (
             <div key={year} className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full border border-[#00ff41]/50 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-[#00ff41]" />
+              <div className="w-8 h-8 rounded-full border border-spark/50 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-spark" />
               </div>
               <div>
-                <div className="text-[#00ff41] font-['Share_Tech_Mono'] text-xs">{year}</div>
-                <div className="text-[#00ff41]/50 font-['Share_Tech_Mono'] text-[10px]">{label}</div>
+                <div className="text-spark font-mono text-xs">{year}</div>
+                <div className="text-spark/50 font-mono text-[10px]">{label}</div>
               </div>
             </div>
           ))}

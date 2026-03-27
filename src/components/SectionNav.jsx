@@ -30,13 +30,24 @@ export default function SectionNav({ activeSection }) {
   }
 
   return (
-    <nav ref={navRef} className="section-nav" aria-label="Section navigation">
+    <nav 
+      ref={navRef} 
+      className="fixed right-5 top-1/2 -translate-y-1/2 z-[1000] hidden md:flex flex-col gap-3"
+      aria-label="Section navigation"
+    >
       {SECTIONS.map(({ id, label }) => (
         <button
           key={id}
           id={`nav-dot-${id}`}
-          className={`section-nav-dot ${activeSection === id ? 'active' : ''}`}
           onClick={() => scrollTo(id)}
+          className={`
+            w-2 h-2 rounded-none border border-white/40 cursor-pointer 
+            transition-all duration-200 
+            ${activeSection === id 
+              ? 'bg-spark border-spark scale-110 shadow-[4px_4px_0_rgba(0,255,65,0.3)]' 
+              : 'bg-transparent'
+            }
+          `}
           title={label}
           aria-label={`Navigate to ${label}`}
         />
